@@ -2,34 +2,40 @@ name: JD_Checkin
 
 on:
   schedule:
-    - cron:  '0 10 * * *'  # 这行表示每天的 UTC 时间10点执行
+    - cron: "0 10 * * *" # 这行表示每天的 UTC 时间10点执行
   workflow_dispatch:
 jobs:
   build:
-    runs-on: ubuntu-latest  # 运行环境
+    runs-on: ubuntu-latest # 运行环境
 
     steps:
-    - uses: actions/checkout@v4  # 拉取代码
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.10'
-        cache: 'pip'
-    
-#    - name: selenium
-#      run: |
-#        curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb
-#        dpkg -i chrome.deb
-#        apt -f install
+      - uses: actions/checkout@v4 # 拉取代码
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+          cache: "pip"
 
-    - uses: browser-actions/setup-chrome@v1
-    - run: chrome --version
+      - name: Cache
+        uses: actions/cache@v2
+        with:
+          path: pt.txt
+          key: ${{ runner.os }}-cache-${{ hashFiles('pt.txt') }}
 
-    - name: Check-in JD
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt  # 如果有依赖，可以在这里安装
-        python main.py
+      #    - name: selenium
+      #      run: |
+      #        curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb
+      #        dpkg -i chrome.deb
+      #        apt -f install
+
+      - uses: browser-actions/setup-chrome@v1
+      - run: chrome --version
+
+      - name: Check-in JD
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # 如果有依赖，可以在这里安装
+          python main.py
 
 #    - name: Run script
 #      run: python main.py  # 执行你的 Python 文件

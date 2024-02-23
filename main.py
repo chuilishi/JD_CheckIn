@@ -63,5 +63,5 @@ headers = {
 }
 response = requests.post(url=url, headers=headers)
 print(response.text)
-if(response.json()["code"] != "0"):
-    raise
+if response.json()["code"] != "0":
+    raise Exception("签到失败")
