@@ -17,16 +17,21 @@ jobs:
         python-version: '3.10'
         cache: 'pip'
     
-    - name: selenium
-      run: |
-        curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb
-        dpkg -i chrome.deb
-        apt -f install
+#    - name: selenium
+#      run: |
+#        curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o chrome.deb
+#        dpkg -i chrome.deb
+#        apt -f install
+
+    - name: Install Chrome
+      uses: logikal-io/install-chrome@v1.0.1
 
     - name: Check-in JD
       run: |
+        apt -f install
         python -m pip install --upgrade pip
         pip install -r requirements.txt  # 如果有依赖，可以在这里安装
+        python main.py
 
-    - name: Run script
-      run: python main.py  # 执行你的 Python 文件
+#    - name: Run script
+#      run: python main.py  # 执行你的 Python 文件
