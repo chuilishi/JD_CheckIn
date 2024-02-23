@@ -1,4 +1,4 @@
-name: Run Python script
+name: JD_Checkin
 
 on:
   schedule:
@@ -10,7 +10,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4  # 拉取代码
-
     - name: Set up Python 3.10
       uses: actions/setup-python@v5
       with:
@@ -23,8 +22,8 @@ jobs:
 #        dpkg -i chrome.deb
 #        apt -f install
 
-    - name: Install Chrome
-      uses: logikal-io/install-chrome@v1.0.1
+    - uses: browser-actions/setup-chrome@v1
+    - run: chrome --version
 
     - name: Check-in JD
       run: |
