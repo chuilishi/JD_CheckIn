@@ -27,7 +27,6 @@ jobs:
 
     - name: Check-in JD
       run: |
-        apt -f install
         python -m pip install --upgrade pip
         pip install -r requirements.txt  # 如果有依赖，可以在这里安装
         python main.py
